@@ -36,14 +36,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Clean Go module cache
+        run: go clean -modcache
 
-    - name: Run golangci-lint
-      uses: golangci/golangci-lint-action@v6
-      with:
-        version: v1.56.2
-        args: ./...
+      - name: Check project files
+        run: |
+          pwd
+          ls -la
+
+      - name: Run golangci-lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: v1.56.2
+          args: --timeout=5m ./...
           
   push:
     runs-on: ubuntu-latest
