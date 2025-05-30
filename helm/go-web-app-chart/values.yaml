@@ -8,7 +8,7 @@ image:
   repository: abhishekf5/go-web-app
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "10016307834"
+  tag: "v1"
 
 ingress:
   enabled: false
@@ -21,4 +21,17 @@ ingress:
       paths:
         - path: /
           pathType: ImplementationSpecific
+service:
+  type: NodePort
+  port: 80
+  targetPort: 8080
+  nodePort: 30156
+serviceAccount:
+  create: true
+  name: ""
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
 
